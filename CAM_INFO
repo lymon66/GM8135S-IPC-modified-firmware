@@ -1,0 +1,52 @@
+/proc/cpuinfo
+
+Processor       : FA6 rev 3 (v5l)
+BogoMIPS        : 709.42
+Features        : swp half
+CPU implementer : 0x66
+CPU architecture: 5TE
+CPU variant     : 0x0
+CPU part        : 0x626
+CPU revision    : 3
+
+Hardware        : Grain-Media GM8136 series
+Revision        : 0000
+Serial          : 0000000000000000
+
+
+
+partition info:
+
+mtd0: [/dev/mtdblock0]                00040000 "uboot"  [256 kb]
+mtd1: [/dev/mtdblock1]  /             002c0000 "romfs"  [2816 kb] [-a 0x00008000 -e 0x00300000]
+mtd2: [/dev/mtdblock2]  /usr          00360000 "user"   [3456 kb] [-a 0x00300000 -e 0x00660000]
+mtd3: [/dev/mtdblock3]  /mnt/web      00110000 "web"    [1088 kb] [-a 0x00660000 -e 0x00770000]
+mtd4: [/dev/mtdblock4]  /mnt/custom   00040000 "custom"  [256 kb] [-a 0x00770000 -e 0x007b0000]
+mtd5: [/dev/mtdblock5]  /mnt/mtd      00050000 "mtd"  [320 kb]
+mtd6: [/dev/mtdblock6]                00800000 "ALL"
+
+
+uboot envs:
+
+HWID=0x2002
+appSystemLanguage=English
+appVideoStandard=PAL
+baudrate=115200
+bootcmd=sf probe 0:0;sf read 0x300000 0x40000 0x300000;cramfsload;bootm 0x2000000
+bootdelay=5
+cmd1=mem=64M gmmem=30M console=ttyS0,115200 user_debug=31 init=/linuxrc root=/dev/mtdblock1 rootfstype=cramfs
+dc=tftp 0x2000000 custom-x.cramfs.img;flwrite
+dr=tftp 0x2000000 romfs-x.cramfs.img;flwrite
+du=tftp 0x2000000 user-x.cramfs.img;flwrite
+dw=tftp 0x2000000 web-x.cramfs.img;flwrite
+ethact=eth0
+ethaddr=00:12:13:3e:b0:19
+gatewayip=192.168.1.1
+ipaddr=192.168.1.10
+netmask=255.255.0.0
+serverip=192.168.1.107
+stderr=serial
+stdin=serial
+stdout=serial
+up=tftp 0x2000000 update.img;flwrite
+
