@@ -1,11 +1,16 @@
-Customized Firware for cheap chinese ip-camera with GM8135S chipset
+Customized Firmware for cheap chinese ip-cameras with GM8135S chipset
+---------------------------------------------------------------------
 
-Most of the GM8135S cameras usually come with a firmware V4.02.R12.00017502.10010.042399.00000 
-As the problem with this firmware is that it does not have a web-interface or has any alternative way to 
-update firware or change settings, it makes the camera quite useless.
+Most of the GM8135S cameras usually come with firmware V4.02.R12.00017502.10010.042399.00000 
+The problem with this firmware is that it does not have a web-interface or has any alternative way to 
+update firmware or change settings, so it makes the camera quite useless.
 
-I created a modified firmware (based on base image: General_HZXM_IPC_GM8135S__50V10PL-S_V4.02.R12.Nat.OnvifS..20160407.bin) which opens a 
-telnet service on port 23 and enables a web-interface, so the camera can be configured and accessed.
+I modified the firmware (based on fw-image: General_HZXM_IPC_GM8135S__50V10PL-S_V4.02.R12.Nat.OnvifS..20160407.bin) 
+and made the following changes:
+
+- telnet service on port 23 ( username: root ; password: xmhdipc )
+- web-interface, so the camera can be fully configured and accessed.
+
 
 to upload the modified files you need to connect via UART (located on the 3 blamk connection pins on top of the camera board)
 
@@ -14,26 +19,25 @@ once connected through UART and you can see the boot process, disrupt boot (came
 start a tftp server on ip 192.168.1.107 and serve the xxx.cramfs.img files on a pc
 
 
-on the camera enter the following (at the uboot prompt):
+> on the camera enter the following (at the uboot prompt):
 
 # setenv appSystemLanguage English;setenv bootdelay 5;saveenv
 
 
-
-and install main modified firmware files:
+> install modified firmware files:
 
 # tftp 0x2000000 custom.cramfs.img;flwrite;tftp 0x2000000 user_web.cramfs.img;flwrite
 
 
-
-if you need a full restore/recovery 
-important note : uboot (on partition mtd0) must still work !! otherwise camera will be dead and can not be recovered !
-
+> alternatively, if you need a semi full restore/recovery 
+> important note : uboot (on partition mtd0) must still work !! otherwise camera will be dead and can not be recovered !
 
 # tftp 0x2000000 custom.cramfs.img;flwrite;tftp 0x2000000 romfs-x.cramfs.img;flwrite;tftp 0x2000000 user-web.cramfs.img;flwrite;tftp 0x2000000 web-x.cramfs.img;flwrite
 
 
 ----------------------------------------------------------------------------------------------------------
 
+details:
+http://www.grain-media.com/html/8136S_8135S.htm
 
 
