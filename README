@@ -12,7 +12,7 @@ and made the following changes:
 - web-interface, so the camera can be fully configured and accessed.
 
 
-to upload the modified files you need to connect via UART (located on the 3 blamk connection pins on top of the camera board)
+to upload the modified files you need to connect via UART (usually located on the 3 blamk connection pins on top of the camera board)
 
 once connected through UART and you can see the boot process, disrupt boot (camera ip will be 192.168.1.10)
 
@@ -23,17 +23,23 @@ start a tftp server on ip 192.168.1.107 and serve the xxx.cramfs.img files on a 
 
 # setenv appSystemLanguage English;setenv bootdelay 5;saveenv
 
-
 > install modified firmware files:
 
 # tftp 0x2000000 custom.cramfs.img;flwrite;tftp 0x2000000 user_web.cramfs.img;flwrite
 
 
+> do not disconnect power to restart or reboot, as this may cause corruption or other unwanted problems.
+> it's best to enter the following command after uploading the files and/or to reboot the camera:
+
+# run bootcmd
+
+
 > alternatively, if you need a semi full restore/recovery 
 > important note : uboot (on partition mtd0) must still work !! otherwise camera will be dead and can not be recovered !
 
-# tftp 0x2000000 custom.cramfs.img;flwrite;tftp 0x2000000 romfs-x.cramfs.img;flwrite;tftp 0x2000000 user-web.cramfs.img;flwrite;tftp 0x2000000 web-x.cramfs.img;flwrite
-
+# tftp 0x2000000 custom.cramfs.img;flwrite;tftp 0x2000000 romfs-x.cramfs.img;flwrite
+# tftp 0x2000000 user-web.cramfs.img;flwrite;tftp 0x2000000 web-x.cramfs.img;flwrite
+# run bootcmd
 
 ----------------------------------------------------------------------------------------------------------
 
