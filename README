@@ -1,3 +1,12 @@
+**IMPORTANT NOTE: THIS REPOSITORY SEEMS TO BE OBSOLETE.**
+**THE CURRENT GM8135S BOARDS NOW COME WITH A DIFFERENT UBOOT VERSION THAT NO LONGER SUPPORTS THE FLWRITE COMMAND.**
+
+**USE AT OWN RISK !**
+
+
+
+
+
 Customized Firmware for cheap chinese ip-cameras with GM8135S chipset
 ---------------------------------------------------------------------
 
